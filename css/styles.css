@@ -11319,3 +11319,7 @@ section#contact form#contactForm :-ms-input-placeholder {
 header.masthead {
   color: black !important;
 }
+
+.masthead-text {
+  color: yellow !important;
+}
