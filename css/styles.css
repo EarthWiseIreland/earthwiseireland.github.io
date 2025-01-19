@@ -11320,6 +11320,10 @@ header.masthead {
   color: black !important;
 }
 
-.masthead-text {
-  color: yellow !important;
+header.masthead .container {
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  padding: 20px; /* Add padding for spacing around the text */
+  border-radius: 10px; /* Rounded corners for a cleaner look */
+  display: inline-block; /* Ensures the background adjusts to the text content */
 }
+
