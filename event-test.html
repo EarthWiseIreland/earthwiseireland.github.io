@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Registration</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    #event-list a {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: center;
+    }
+    #event-list a:hover {
+      background: #0056b3;
+    }
+    #form-container {
+      margin-top: 20px;
+      display: none; /* Hidden until an event is clicked */
+    }
+    iframe {
+      width: 100%;
+      height: 800px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a> |
+    <a href="event-registration.html">Event Registration</a> |
+    <a href="privacy-policy.html">Privacy Policy</a>
+  </nav>
+
+  <h1>Register for an Event</h1>
+  <p>Select an available event below:</p>
+
+  <ul id="event-list">Loading events...</ul>
+
+  <div id="form-container">
+    <h2 id="event-title"></h2>
+    <iframe id="event-iframe" src=""></iframe>
+  </div>
+
+  <script>
+    async function loadEvents() {
+      const apiUrl = "YOUR_GOOGLE_APPS_SCRIPT_URL"; // Replace with your deployed Apps Script URL
+      try {
+        const response = await fetch(apiUrl);
+        const events = await response.json();
+
+        const eventList = document.getElementById("event-list");
+        eventList.innerHTML = ""; // Clear loading text
+
+        if (events.length === 0) {
+          eventList.innerHTML = "<li>No available events.</li>";
+          return;
+        }
+
+        events.forEach(event => {
+          const a = document.createElement("a");
+          a.href = "#";
+          a.dataset.link = event.link;
+          a.dataset.name = event.name;
+          a.textContent = event.name;
+          a.onclick = function () {
+            document.getElementById("event-title").textContent = this.dataset.name;
+            document.getElementById("event-iframe").src = this.dataset.link;
+            document.getElementById("form-container").style.display = "block";
+          };
+          eventList.appendChild(a);
+        });
+      } catch (error) {
+        document.getElementById("event-list").innerHTML = "Error loading events.";
+        console.error("Error fetching event data:", error);
+      }
+    }
+
+    loadEvents(); // Call the function on page load
+  </script>
+
+  <footer>
+    <p>&copy; 2025 EarthWise Consultancy LTD</p>
+  </footer>
+</body>
+</html>
