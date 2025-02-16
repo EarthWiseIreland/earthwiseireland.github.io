@@ -10987,6 +10987,42 @@ header.masthead .masthead-heading {
     margin-bottom: 4rem;
   }
 }
+
+/* Adjust text container for better mobile scaling */
+.masthead .container {
+  max-width: 90%; /* Keeps text width aligned with the rest of the site */
+  text-align: center;
+}
+
+/* Responsive text scaling */
+.masthead-subheading {
+  font-size: 2rem; /* Default for desktops */
+}
+
+.masthead-heading {
+  font-size: 3rem; /* Default for desktops */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .masthead .container {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .masthead-subheading {
+    font-size: 1.5rem; /* Smaller for mobile */
+  }
+
+  .masthead-heading {
+    font-size: 2rem; /* Smaller for mobile */
+  }
+
+  .masthead-text {
+    font-size: 1rem; /* Adjust body text size */
+  }
+}
+
 #portfolio .portfolio-item {
   max-width: 26rem;
   margin-left: auto;
