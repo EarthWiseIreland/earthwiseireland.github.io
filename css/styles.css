@@ -11327,3 +11327,8 @@ header.masthead .container {
   display: inline-block; /* Ensures the background adjusts to the text content */
 }
 
+#mainNav {
+    background-color: black !important;
+}
+
+
