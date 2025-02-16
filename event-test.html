@@ -6,25 +6,65 @@
   <title>Event Registration</title>
   <link rel="stylesheet" href="css/styles.css">
   <style>
-    #event-list a {
-      display: block;
-      margin: 10px 0;
-      padding: 10px;
-      background: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
+    /* Event selection container */
+    #event-list-container {
       text-align: center;
+      margin-top: 20px;
     }
-    #event-list a:hover {
-      background: #0056b3;
+
+    /* Event button styling */
+    .event-button {
+      display: inline-block;
+      width: 100%;
+      max-width: 400px;
+      margin: 10px auto;
+      padding: 15px;
+      background: #28a745;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
     }
+
+    .event-button:hover {
+      background: #218838;
+      transform: scale(1.05);
+    }
+
+    /* Hide event list when an event is selected */
     #form-container {
       margin-top: 20px;
-      display: none; /* Hidden until an event is clicked */
+      display: none; /* Initially hidden */
+      text-align: center;
     }
+
+    /* Back button styling */
+    .back-button {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 15px;
+      background: #dc3545;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .back-button:hover {
+      background: #c82333;
+    }
+
+    /* Responsive iframe */
     iframe {
       width: 100%;
+      max-width: 800px;
       height: 800px;
       border: none;
     }
@@ -40,11 +80,15 @@
   <h1>Register for an Event</h1>
   <p>Select an available event below:</p>
 
-  <ul id="event-list">Loading events...</ul>
+  <div id="event-list-container">
+    <ul id="event-list">Loading events...</ul>
+  </div>
 
   <div id="form-container">
     <h2 id="event-title"></h2>
     <iframe id="event-iframe" src=""></iframe>
+    <br>
+    <button class="back-button" onclick="showEventList()">← Back to Event List</button>
   </div>
 
   <script>
@@ -58,27 +102,33 @@
         eventList.innerHTML = ""; // Clear loading text
 
         if (events.length === 0) {
-          eventList.innerHTML = "<li>No available events.</li>";
+          eventList.innerHTML = "<p>No available events.</p>";
           return;
         }
 
         events.forEach(event => {
-          const a = document.createElement("a");
-          a.href = "#";
-          a.dataset.link = event.link;
-          a.dataset.name = event.name;
-          a.textContent = event.name;
-          a.onclick = function () {
+          const button = document.createElement("button");
+          button.className = "event-button";
+          button.dataset.link = event.link;
+          button.dataset.name = event.name;
+          button.textContent = event.name;
+          button.onclick = function () {
             document.getElementById("event-title").textContent = this.dataset.name;
             document.getElementById("event-iframe").src = this.dataset.link;
             document.getElementById("form-container").style.display = "block";
+            document.getElementById("event-list-container").style.display = "none"; // Hide event list
           };
-          eventList.appendChild(a);
+          eventList.appendChild(button);
         });
       } catch (error) {
-        document.getElementById("event-list").innerHTML = "Error loading events.";
+        document.getElementById("event-list").innerHTML = "<p>Error loading events.</p>";
         console.error("Error fetching event data:", error);
       }
+    }
+
+    function showEventList() {
+      document.getElementById("event-list-container").style.display = "block"; // Show event list
+      document.getElementById("form-container").style.display = "none"; // Hide form
     }
 
     loadEvents(); // Call the function on page load
