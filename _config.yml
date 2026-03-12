@@ -5,8 +5,10 @@ url: "https://earthwiseireland.ie"
 markdown: kramdown
 highlighter: rouge
 
-# CookieYes - add GA & Meta Pixel in CookieYes dashboard, not here
-cookieyes_id: "0991dd9d12292628ed8776c461ba6dfd"   # From CookieYes: Advanced Settings → Get Installation Code
+# Tracking - CookieYes manages consent. Add IDs below and enable GCM in CookieYes dashboard.
+cookieyes_id: "0991dd9d12292628ed8776c461ba6dfd"
+ga_id: "G-JVEC9DYY10"          # GA4 measurement ID (e.g. G-XXXXXXXXXX) - enable Support GCM in CookieYes > Advanced Settings
+meta_pixel_id: ""  # Meta/Facebook Pixel ID
 
 # Exclude from processing
 exclude:

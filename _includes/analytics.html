@@ -1,7 +1,66 @@
 {% comment %}
-  CookieYes - cookie consent banner. Add GA & Meta Pixel in CookieYes dashboard.
+  CookieYes + Google Analytics + Meta Pixel. Script order matters for consent.
+  In CookieYes: Advanced Settings → enable "Support GCM" for GA.
+  Meta Pixel fires when user accepts Advertisement category.
 {% endcomment %}
 
+{% if site.ga_id %}
+<!-- Google Consent Mode v2 - must load before CookieYes -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag("consent", "default", {
+  ad_storage: "denied",
+  ad_user_data: "denied",
+  ad_personalization: "denied",
+  analytics_storage: "denied",
+  functionality_storage: "denied",
+  personalization_storage: "denied",
+  security_storage: "granted",
+  wait_for_update: 2000,
+});
+gtag("set", "ads_data_redaction", true);
+gtag("set", "url_passthrough", true);
+</script>
+{% endif %}
+
 {% if site.cookieyes_id %}
+<!-- CookieYes - cookie consent -->
 <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/{{ site.cookieyes_id }}/script.js"></script>
+{% endif %}
+
+{% if site.ga_id %}
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga_id }}"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', '{{ site.ga_id }}');
+</script>
+{% endif %}
+
+{% if site.meta_pixel_id %}
+<!-- Meta Pixel - consent managed by CookieYes Advertisement category -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('consent', 'revoke');
+fbq('init', '{{ site.meta_pixel_id }}');
+fbq('track', 'PageView');
+
+function handleMetaConsent(hasConsent) {
+  fbq("consent", hasConsent ? "grant" : "revoke");
+}
+document.addEventListener("cookieyes_consent_update", function(e) {
+  handleMetaConsent(e.detail.accepted && e.detail.accepted.includes("advertisement"));
+});
+document.addEventListener("cookieyes_banner_load", function(e) {
+  handleMetaConsent(e.detail.categories && e.detail.categories.advertisement);
+});
+</script>
 {% endif %}
