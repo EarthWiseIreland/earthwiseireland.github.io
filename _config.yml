@@ -4,6 +4,8 @@ baseurl: ""
 url: "https://earthwiseireland.ie"
 markdown: kramdown
 highlighter: rouge
+plugins:
+  - jekyll-sitemap
 
 # Tracking - CookieYes manages consent. Add IDs below and enable GCM in CookieYes dashboard.
 cookieyes_id: "0991dd9d12292628ed8776c461ba6dfd"
