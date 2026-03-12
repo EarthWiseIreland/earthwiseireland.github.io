@@ -5,6 +5,9 @@ url: "https://earthwiseireland.ie"
 markdown: kramdown
 highlighter: rouge
 
+# CookieYes - add GA & Meta Pixel in CookieYes dashboard, not here
+cookieyes_id: "0991dd9d12292628ed8776c461ba6dfd"   # From CookieYes: Advanced Settings → Get Installation Code
+
 # Exclude from processing
 exclude:
   - Gemfile

@@ -1,0 +1,7 @@
+{% comment %}
+  CookieYes - cookie consent banner. Add GA & Meta Pixel in CookieYes dashboard.
+{% endcomment %}
+
+{% if site.cookieyes_id %}
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/{{ site.cookieyes_id }}/script.js"></script>
+{% endif %}
