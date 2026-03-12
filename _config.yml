@@ -1,0 +1,15 @@
+title: EarthWise Consultancy LTD
+description: Ireland's Leading Agri-Environmental Consultancy
+baseurl: ""
+url: "https://earthwiseireland.ie"
+markdown: kramdown
+highlighter: rouge
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - .git
+  - .gitignore
+  - node_modules
