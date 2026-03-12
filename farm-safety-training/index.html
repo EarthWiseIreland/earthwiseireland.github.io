@@ -26,6 +26,14 @@ extra_css: |
     background: #218838;
     transform: scale(1.05);
   }
+  .event-button:disabled {
+    cursor: wait;
+    opacity: 0.95;
+  }
+  .event-button:disabled:hover {
+    background: #28a745;
+    transform: none;
+  }
   #form-container { margin-top: 20px; display: none; text-align: center; }
   .back-button {
     display: inline-block;
@@ -85,7 +93,7 @@ scripts:
         </p>
       </div>
       <div id="event-list-container">
-        <ul id="event-list">Loading events...</ul>
+        <ul id="event-list"><button class="event-button" disabled>Loading available dates...</button></ul>
       </div>
     </div>
   </section>
